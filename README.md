@@ -1,6 +1,7 @@
 # Oxyscan 
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/burgeridiot/oxyscan/blob/master/README.md)
-[![pt-pt](https://img.shields.io/badge/lang-pt--pt-green.svg)](https://github.com/burgeridiot/oxyscan/blob/master/README.md)
+[![pt-pt](https://img.shields.io/badge/lang-pt--pt-green.svg)](https://github.com/burgeridiot/oxyscan/blob/master/README-pt-pt.md)
+
 Oxyscan is a simple Python app built with Flet designed to work with hospitals that handle lots of oxygen bottles and that can't keep up with all of them. It allows you to:
 - Add oxygen bottles on your device, with location, condition and even the patient using it available as additional information you can add.
 - Save a localized list of bottles, and upload them to a database later if you are in a area without network.
