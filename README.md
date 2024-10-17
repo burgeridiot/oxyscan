@@ -1,4 +1,6 @@
-# Oxyscan
+# Oxyscan 
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/burgeridiot/oxyscan/blob/master/README.md)
+[![pt-pt](https://img.shields.io/badge/lang-pt--pt-green.svg)](https://github.com/burgeridiot/oxyscan/blob/master/README.md)
 Oxyscan is a simple Python app built with Flet designed to work with hospitals that handle lots of oxygen bottles and that can't keep up with all of them. It allows you to:
 - Add oxygen bottles on your device, with location, condition and even the patient using it available as additional information you can add.
 - Save a localized list of bottles, and upload them to a database later if you are in a area without network.
@@ -9,13 +11,14 @@ This app will require Android 4.0 +.
 
 
 ## Compiling
-*side-note:* This app requires you to manually compile it. Why? It's related to how every hospital has their own server. Oxyscan does not come bundled with a main server or a server explorer as this could allow malicious actors to access servers with ease.
+*side-note:* This app requires you to manually compile it. Why? It's related to how every hospital has their own server. Oxyscan does not come bundled with a main server or a server explorer as this could allow malicious actors to access servers with ease. Hence, having to manually compile it (because you gotta alter the server configurations.)
+
 To compile, you will require:
 
-- Flet
+- Flet + PyMySQL
 - Flutter
-- Android Studio (On Windows, unsure on MacOS/Linux)
-- Anything else that is requested to you by Flutter Doctor during compilation. (To check independently of compilation, download Flutter and run `flutter doctor -v`.
+- Android Studio (On Windows, unsure what else is needed on MacOS/Linux)
+- Anything else that is requested to you by Flutter Doctor during compilation. (To check independently of compilation, download Flutter and run `flutter doctor -v`).
 
 Simply download `oxyscan.py`, extract it to a folder, open your terminal in said folder and type in: `flet build apk --module-name oxyscan.py`. This process takes about a minute or so, but if you have all of the requirements then it should be successful. After that, it's ready to be installed in any device!
 
@@ -33,4 +36,4 @@ For anyone who's an expert in MySQL, this should be an easy task, but if it is y
 - Inside of the database, create a table named "garrafas", and add the columns: `garrafa_ID` (INT), `garrafa_Lote` (INT), `garrafa_Localizacao` (I used LONGTEXT, but you can use VARCHAR() as well) and `garrafa_Utente` (VARCHAR(120)).
 And that's all you need to do.
 
-Current Progress: 35%
+Current Progress: `35%`
