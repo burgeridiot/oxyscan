@@ -1,13 +1,16 @@
-# Neon >Oxyscan< Evagelion (version 0.25b)
+# Neon >Oxyscan< Evagelion (version 0.25a)
 
 """
-(Mini)-Patch Notes:
+Patch Notes:
 
-- Started work on making deleting work
+- Server connecting, file writing, all of that is now fully functional.
+(shout out to oracle for making the process to uninstall/reinstall MySQL so awful btw, they delayed this update by aprox. 2-3 weeks)
+
+- Fixed some basic bugs. Nothing too serious.
+- Android version still not out due to some problems with Flet. Should be solved soon. (i hope :<)
+- Added proper formatting + commenting. (no, really, i suck at commenting because i really don't know how to explain better than this)
 
 Planned for next Patch:
-
-The same as always, so:
 
 - Proper bottle displaying (so no more reading JSON, I suppose)
 - Searching for bottles.
@@ -16,8 +19,9 @@ The same as always, so:
 - Barring web devices and scanner-less phones from creating new bottles (even though these are just text boxes) ((you can change this as it'll be a variable you can simply tick "True" for every device, i just felt like it'd be better this way))
 
 
-Special thanks for this (Mini)-Patch:
-- no one this time around
+Special thanks for this Patch:
+- Stack Overflow (great site, everyone should use it once, although it doesn't quite have much Flet posts)
+- Delta Coffee (kept me up and running during this)
 
 """
 
@@ -191,7 +195,6 @@ def main(page: ft.Page):
                 updatelist()
         else: # Just condense the info and write it to the file if it's offline
             if addid.value and addlote.value:
-                 if addid.value and addlote.value:
                      with open("garrafas.json", 'r') as file:
                         data = json.load(file)  # Load the JSON data
                          # Fetch an array with a for loop inside that checks if the selected items are part of the file
