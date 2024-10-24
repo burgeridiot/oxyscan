@@ -1,16 +1,13 @@
-# Neon >Oxyscan< Evagelion (version 0.25a)
+# Neon >Oxyscan< Evagelion (version 0.25b)
 
 """
-Patch Notes:
+(Mini)-Patch Notes:
 
-- Server connecting, file writing, all of that is now fully functional.
-(shout out to oracle for making the process to uninstall/reinstall MySQL so awful btw, they delayed this update by aprox. 2-3 weeks)
-
-- Fixed some basic bugs. Nothing too serious.
-- Android version still not out due to some problems with Flet. Should be solved soon. (i hope :<)
-- Added proper formatting + commenting. (no, really, i suck at commenting because i really don't know how to explain better than this)
+- Started work on making deleting work
 
 Planned for next Patch:
+
+The same as always, so:
 
 - Proper bottle displaying (so no more reading JSON, I suppose)
 - Searching for bottles.
@@ -19,9 +16,8 @@ Planned for next Patch:
 - Barring web devices and scanner-less phones from creating new bottles (even though these are just text boxes) ((you can change this as it'll be a variable you can simply tick "True" for every device, i just felt like it'd be better this way))
 
 
-Special thanks for this Patch:
-- Stack Overflow (great site, everyone should use it once, although it doesn't quite have much Flet posts)
-- Delta Coffee (kept me up and running during this)
+Special thanks for this (Mini)-Patch:
+- no one this time around
 
 """
 
@@ -171,6 +167,7 @@ def main(page: ft.Page):
                     stmt_insert = f'INSERT INTO garrafas (garrafa_ID, garrafa_Lote, garrafa_Localizacao, garrafa_Utente) VALUES ({addid.value}, {addlote.value}, "{addgps.value}", "{addutente.value}")'
                     cursor.execute(stmt_insert) # Run this SQL command to insert the values onto the table. PRO-TIP: Don't run any delete operations from the app. It can AND will go wrong.
                 connection.commit()
+                updatelist()
         else: # Just condense the info and write it to the file if it's offline
             if addid.value and addlote.value and addgps.value:
                 informação = {
@@ -180,6 +177,30 @@ def main(page: ft.Page):
                     'garrafa_Utente': addutente.value
                 }
                 write_offline_list("garrafas.json", informação)
+
+    def delete_bottle(e):
+        global is_online
+        if is_online: # If we're online
+            if addid.value and addlote.value: # If these obiligatory values are present
+                with connection.cursor() as cursor:
+                    stmt_insert = f'DELETE FROM garrafas WHERE garrafa_ID = {addid.value} AND garrafa_Lote = {addlote.value};'
+                    cursor.execute(stmt_insert) # Run this SQL command to delete the values off the table. PRO-TIP: Don't run any delete operations from the app. It can AND will go wrong.
+                connection.commit()
+                
+                load_online_list()
+                updatelist()
+        else: # Just condense the info and write it to the file if it's offline
+            if addid.value and addlote.value:
+                 if addid.value and addlote.value:
+                     with open("garrafas.json", 'r') as file:
+                        data = json.load(file)  # Load the JSON data
+                         # Fetch an array with a for loop inside that checks if the selected items are part of the file
+                        data = [item for item in data if not (item['garrafa_ID'] == addid.value and item['garrafa_Lote'] == addlote.value)]
+
+                     # Write the updated list back to the file
+                     with open("garrafas.json", 'w') as file:
+                        json.dump(data, file)
+
 
     t = ft.Tabs(
         selected_index=0, # Index goes from 0 to 2 if there are 3 present
@@ -227,6 +248,7 @@ def main(page: ft.Page):
                         "Apagar garrafa",
                         icon=ft.icons.DELETE,
                         icon_color="red400",
+                        on_click=delete_bottle
                     ),
                     ft.Switch(label="Ligar a base de dados", value=is_online, on_change=switchmode),
                     removelist
